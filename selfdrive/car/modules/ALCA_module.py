@@ -435,7 +435,7 @@ class ALCAController(object):
           steers_max = interp(CS.v_ego, CS.CP.steerMaxBP, CS.CP.steerMaxV)
           self.pid.pos_limit = steers_max
           self.pid.neg_limit = -steers_max
-          output_steer = self.pid.update(new_angle, CS.angle_steers , check_saturation=(CS.v_ego > 10), override=CS.steer_override, feedforward=new_angle, speed=CS.v_ego, deadzone=0.0)
+          output_steer = self.pid.update(new_angle, CS.angle_steers , check_saturation=(CS.v_ego > 10), override=CS.steer_override, feedforward=new_angle * (CS.v_ego ** 2), speed=CS.v_ego, deadzone=0.0)
         else: 
           output_steer = actuators.steer
         return [new_angle,output_steer,new_ALCA_Enabled,new_turn_signal]
